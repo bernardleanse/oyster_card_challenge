@@ -29,10 +29,17 @@ describe Oystercard do
     it "should allow card to touch in" do
       expect(subject).to respond_to(:touch_in)
     end
+
+    it "should give error when balance is less than minimum fare" do
+      subject.balance = 0
+
+      expect{subject.touch_in}.to raise_error "Insufficient funds: you need at least  #{Oystercard::MIN_FARE}"
+    end
   end
 
   describe "#in_journey" do
     it "should be in journey after touching in" do
+      subject.top_up(50)
       subject.touch_in
       expect(subject.in_journey).to eq(true) 
     end

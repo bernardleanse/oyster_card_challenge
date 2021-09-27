@@ -1,14 +1,16 @@
 class Oystercard
   MAX_BALANCE = 90
+  MIN_FARE = 1
+  INIT_BALANCE = 0
 
   attr_accessor :balance, :in_journey
-  def initialize
-    @balance = 0
+  def initialize(balance = INIT_BALANCE)
+    @balance = balance
     @in_journey = false
   end
 
   def top_up(amount)
-    raise "Maximum balance is #{MAX_BALANCE}" if @balance + amount > 90
+    raise "Maximum balance is #{MAX_BALANCE}" if @balance + amount > MAX_BALANCE
     @balance += amount
   end
 
@@ -17,16 +19,12 @@ class Oystercard
   end
 
   def touch_in
-    in_journey?(true)
-  end
-
-  def in_journey?(bool)
-    raise "Error" unless [true, false].include? bool
-    @in_journey = bool
+    raise "Insufficient funds: you need at least  #{MIN_FARE}" if @balance <= MIN_FARE
+    @in_journey = true
   end
 
   def touch_out
-    in_journey?(false)
+    @in_journey = false
   end
 
   
