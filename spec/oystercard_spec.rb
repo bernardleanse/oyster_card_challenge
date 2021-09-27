@@ -25,6 +25,28 @@ describe Oystercard do
     end
   end
 
+  describe "#touch_in" do
+    it "should allow card to touch in" do
+      expect(subject).to respond_to(:touch_in)
+    end
+  end
+
+  describe "#in_journey" do
+    it "should be in journey after touching in" do
+      subject.touch_in
+      expect(subject.in_journey).to eq(true) 
+    end
+   
+  end
+
+  describe "#touch_out" do
+    it "should end the journey" do
+      subject.in_journey = true
+      subject.touch_out
+      expect(subject.in_journey).to eq false
+
+    end
+  end
 
 
   
