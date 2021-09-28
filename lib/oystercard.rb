@@ -16,7 +16,7 @@ class Oystercard
     @balance += amount
   end
 
-  def touch_in(entry_station)
+  def touch_in(entry_station) 
     raise "Insufficient funds: you need at least  #{MIN_FARE}" if @balance <= MIN_FARE
     @entry_station = entry_station
   end
