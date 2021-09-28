@@ -3,6 +3,7 @@ require 'oystercard'
 describe Oystercard do
 
   let(:entry_station) {double :entry_station}
+  let(:exit_station) {double :exit_station}
 
   it "should have a balance" do   
     expect(subject.balance).to eq 0
@@ -47,24 +48,49 @@ describe Oystercard do
   end
 
   describe "#touch_out" do
+
     subject {Oystercard.new(50)}
+
     it "should end the journey" do
       subject.touch_in(entry_station)
-      subject.touch_out
+      subject.touch_out(exit_station)
       expect(subject.in_journey?).to eq false
     end
 
     it "should deduct after touch_out" do
       subject.touch_in(entry_station)
+<<<<<<< HEAD
       expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MIN_FARE)
+=======
+      expect {subject.touch_out(exit_station)}.to change{subject.balance}.by(-Oystercard::MIN_FARE)
+>>>>>>> bca0d45dd8149537e65a794afee6c501aa7df739
     end
 
     it 'should forget the entry station' do
       subject.touch_in(entry_station)
-      subject.touch_out
+      subject.touch_out(exit_station)
       expect(subject.entry_station).to eq(nil)
     end
 
+    it 'should add an exit station' do
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.exit_station).to eq(exit_station)
+    end
+
+  end
+
+    it {is_expected.to respond_to(:journeys)}
+
+  describe '#journeys' do 
+    let(:journey) { { entry_station: entry_station, exit_station: exit_station } }
+
+    it 'should store a journey' do
+      subject.top_up(50)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).to include(journey)
+    end
 
   end
 
