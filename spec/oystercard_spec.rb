@@ -59,11 +59,7 @@ describe Oystercard do
 
     it "should deduct after touch_out" do
       subject.touch_in(entry_station)
-<<<<<<< HEAD
-      expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MIN_FARE)
-=======
       expect {subject.touch_out(exit_station)}.to change{subject.balance}.by(-Oystercard::MIN_FARE)
->>>>>>> bca0d45dd8149537e65a794afee6c501aa7df739
     end
 
     it 'should forget the entry station' do
