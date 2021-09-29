@@ -51,29 +51,27 @@ describe Oystercard do
 
     subject {Oystercard.new(50)}
 
-    it "should end the journey" do
+    before do
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
+    end
+
+    it "should end the journey" do
       expect(subject.in_journey?).to eq false
     end
 
     it "should deduct after touch_out" do
-      subject.touch_in(entry_station)
-      expect {subject.touch_out(exit_station)}.to change{subject.balance}.by(-Oystercard::MIN_FARE)
+      expect { subject.touch_out(exit_station) }.to change{ subject.balance }.by(-Oystercard::MIN_FARE)
     end
 
     it 'should forget the entry station' do
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
       expect(subject.entry_station).to eq(nil)
     end
 
     it 'should add an exit station' do
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
       expect(subject.exit_station).to eq(exit_station)
     end
-
+    oi = 'oi'
   end
 
     it {is_expected.to respond_to(:journeys)}

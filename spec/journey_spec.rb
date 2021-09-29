@@ -14,10 +14,10 @@ describe Journey do
     expect(journey.exit_station).to eq station2
   end
 
-  it "should have default fare" do
-    expect(subject.fare).to eq Journey::DEFAULT_FARE
+  it "should have penalty fare" do
+    expect(subject.fare).to eq Journey::PENALTY_FARE
   end
 
-  it "should "
+  
 end
 
