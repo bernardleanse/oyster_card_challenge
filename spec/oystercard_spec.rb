@@ -72,6 +72,7 @@ describe Oystercard do
       expect(subject.exit_station).to eq(exit_station)
     end
     oi = 'oi'
+    ok 
   end
 
     it {is_expected.to respond_to(:journeys)}
